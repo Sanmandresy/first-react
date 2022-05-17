@@ -1,7 +1,13 @@
-import NavBar from "./NavBar"; 
+
+import NavBar from "./NavBar";
+import ContentBox from "./ContentBox";
 
 function App() {
-  return <NavBar></NavBar>
+  return(<>
+  <NavBar></NavBar>
+  <ContentBox></ContentBox>
+  </>
+);
 }
 
 export default App;
