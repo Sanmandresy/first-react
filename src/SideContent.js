@@ -3,7 +3,6 @@ import Footer from './Footer';
 import Top from './Top';
 import Bottom from './Bottom';
 import TableContainer from './TableContainer';
-import Pagination from './Pagination';
 
 export default function SideContent() {
   return (<>
