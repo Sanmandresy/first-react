@@ -26,6 +26,7 @@ export function Table() {
         previousPage,
         setPageSize,
         state,
+        rows,
         setGlobalFilter,
         prepareRow }
         = tableUser;
@@ -84,7 +85,7 @@ export function Table() {
         </table>     
 
             <div className='dataTable-bottom'>
-                <div className="dataTable-info">Showing 1 to {pageSize} of 57 entries of page {actual}</div>
+                <div className="dataTable-info">{ (pageSize) * (pageIndex) + 1} to {pageSize*(actual)<=rows.length ? pageSize * (actual) : rows.length} of {rows.length} entries</div>
                 <nav className='dataTable-pagination'>
                     <ul className='dataTable-pagination-list'>
                         <li onClick={() => previousPage()}><a href='#!'>&#60;</a></li>
