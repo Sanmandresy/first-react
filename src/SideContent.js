@@ -1,8 +1,7 @@
 import React from 'react'
 import Footer from './Footer';
-import Top from './Top';
 import Bottom from './Bottom';
-import {SortedTable} from "./sortTable";
+import { FilteredTable } from './UpdatedTable';
 
 export default function SideContent() {
   return (<>
@@ -28,8 +27,7 @@ export default function SideContent() {
                         </div>
                             <div className="card-body">
                               <div className="dataTable-wrapper dataTable-loading no-footer sortable searchable fixed-columns">  
-                                <Top></Top>
-                                <SortedTable></SortedTable>
+                               <FilteredTable></FilteredTable>
                                 <Bottom></Bottom>
                             </div>
                             </div>
