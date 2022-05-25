@@ -5,8 +5,10 @@ import {COLUMNS} from "./columns"
 import { useSortBy } from 'react-table/dist/react-table.development';
 import { useGlobalFilter } from 'react-table/dist/react-table.development';
 import { FilterSearch } from './FilterSearch';
+import { usePagination } from 'react-table/dist/react-table.development';
 
-export function FilteredTable() {
+
+export function Table() {
     const columns = useMemo(() => COLUMNS,[]);
     const data = useMemo(() => mock_data,[]);
 
@@ -14,30 +16,37 @@ export function FilteredTable() {
         columns,
         data
     },
-    useGlobalFilter,useSortBy);
-
+    useGlobalFilter,useSortBy,usePagination);
+    
     const {getTableProps,
         getTableBodyProps,
         headerGroups,
-        rows,
+        page,
+        nextPage,
+        previousPage,
+        setPageSize,
         state,
         setGlobalFilter,
         prepareRow }
         = tableUser;
-
-        const { globalFilter } = state;
+        
+        const { globalFilter,pageIndex,pageSize } = state;
+        var actual = pageIndex+1;
 
     return(<>
     <div className= "dataTable-top">
                         <div className="dataTable-dropdown">
                             <label>
-                                 <select className="dataTable-selector">
-                                    <option value="5">5</option>
-                                    <option value="10">10</option>
-                                    <option value="15">15</option>
-                                    <option value="20">20</option>
-                                    <option value="25">25</option>
-                                    <option value="57">All</option>
+                                 <select className="dataTable-selector" value={pageSize} onChange={
+                                     event => setPageSize(Number(event.target.value))
+                                 }>
+                                    {
+                                        [5,10,15,20,25].map(pageSize => {
+                                            return <option key={pageSize} value={pageSize} >
+                                                {pageSize}
+                                            </option>
+                                        })
+                                    }
                                  </select> entries per page
                             </label>
                         </div>
@@ -61,7 +70,7 @@ export function FilteredTable() {
                 })}
             </thead>
             <tbody {...getTableBodyProps()}>
-                {rows.map(row => {
+                {page.map(row => {
                     prepareRow(row)
                     return (<>
                     <tr {...row.getRowProps()}>
@@ -72,7 +81,23 @@ export function FilteredTable() {
                     </>)
                 })}
             </tbody>
-        </table>         
+        </table>     
+
+            <div className='dataTable-bottom'>
+                <div className="dataTable-info">Showing 1 to {pageSize} of 57 entries of page {actual}</div>
+                <nav className='dataTable-pagination'>
+                    <ul className='dataTable-pagination-list'>
+                        <li onClick={() => previousPage()}><a href='#!'>&#60;</a></li>
+                        <li className=''><a href='#!'>{actual}</a></li>
+                        <li onClick={() => {
+                            nextPage();
+                        }} className=''><a href='#!'>&gt;</a></li>
+                    </ul>
+                </nav>
+            </div>
+
+           
+
     </div>
     
     </>);
