@@ -44,7 +44,6 @@ export default function TableContainer() {
                     </>)
                 })}
             </tbody>
-
         </table>         
     </div>
     
