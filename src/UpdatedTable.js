@@ -42,7 +42,7 @@ export function Table() {
                                  }>
                                     {
                                         [5,10,15,20,25].map(pageSize => {
-                                            return <option key={pageSize} value={pageSize} >
+                                            return <option key={pageSize} value={pageSize} selected>
                                                 {pageSize}
                                             </option>
                                         })
