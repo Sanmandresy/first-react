@@ -2,23 +2,25 @@ import React, {useMemo}from 'react'
 import {useTable} from 'react-table'
 import mock_data from "./data.json"
 import {COLUMNS} from "./columns"
+import { useSortBy } from 'react-table/dist/react-table.development';
 
 
-export default function TableContainer() {
+export  function SortTable() {
     const columns = useMemo(() => COLUMNS,[]);
     const data = useMemo(() => mock_data,[]);
 
     const tableUser = useTable({
         columns,
         data
-    })
+    },
+    useSortBy);
 
     const {getTableProps,
         getTableBodyProps,
         headerGroups,
         rows,
         prepareRow }
-        = tableUser
+        = tableUser;
 
     return(<>
     <div className="dataTable-container">
@@ -27,7 +29,13 @@ export default function TableContainer() {
                 {headerGroups.map( (headerGroup) => {
                         return <tr {...headerGroup.getHeaderGroupProps()}>
                         {headerGroup.headers.map( (column) => {
-                            return <th {...column.getHeaderProps()}>{column.render("Header")}</th>
+                            return <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                                {column.render("Header")}
+                                <span>
+                                    {column.isSorted ? (column.isSortedDesc ? "🔽" : "🔼" ) : ""}
+                                </span>
+
+                                </th>
                         })}
                     </tr>
                 })}
