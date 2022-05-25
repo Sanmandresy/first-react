@@ -5,7 +5,7 @@ import {COLUMNS} from "./columns"
 import { useSortBy } from 'react-table/dist/react-table.development';
 
 
-export  function SortTable() {
+export  function SortedTable() {
     const columns = useMemo(() => COLUMNS,[]);
     const data = useMemo(() => mock_data,[]);
 
