@@ -25,6 +25,8 @@ export function Table() {
         nextPage,
         previousPage,
         setPageSize,
+        gotoPage,
+        pageCount,
         state,
         rows,
         setGlobalFilter,
@@ -33,6 +35,11 @@ export function Table() {
         
         const { globalFilter,pageIndex,pageSize } = state;
         var actual = pageIndex+1;
+        var pageNumbers = [];
+        for(var nPage = 0; nPage <= pageCount-1 ; nPage++){
+            pageNumbers.push(nPage);
+        }
+
 
     return(<>
     <div className= "dataTable-top">
@@ -89,7 +96,9 @@ export function Table() {
                 <nav className='dataTable-pagination'>
                     <ul className='dataTable-pagination-list'>
                         <li onClick={() => previousPage()}><a href='#!'>&#60;</a></li>
-                        <li className=''><a href='#!'>{actual}</a></li>
+                        {pageNumbers.map((n) => {
+                           return  <li onClick={() => gotoPage(n)}><a href='#!'>{n}</a></li>
+                        })}
                         <li onClick={() => {
                             nextPage();
                         }} className=''><a href='#!'>&gt;</a></li>
